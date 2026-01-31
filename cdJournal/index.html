@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD Journal - Balance Sheet & P&L Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-chart-line"></i> CD Journal</h1>
+            <p>Monthly Balance Sheet & Profit & Loss Tracker</p>
+            <div class="header-controls">
+                <select id="yearSelector" class="year-selector">
+                    <option value="2024">2024</option>
+                    <option value="2025" selected>2025</option>
+                    <option value="2026">2026</option>
+                </select>
+                <button id="exportBtn" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button id="importBtn" class="btn btn-secondary">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="journal-entries">
+                <i class="fas fa-book"></i> Journal Entries
+            </button>
+            <button class="tab-btn" data-tab="balance-sheet">
+                <i class="fas fa-balance-scale"></i> Balance Sheet
+            </button>
+            <button class="tab-btn" data-tab="profit-loss">
+                <i class="fas fa-chart-pie"></i> Profit & Loss
+            </button>
+            <button class="tab-btn" data-tab="gl-accounts">
+                <i class="fas fa-list-ol"></i> GL Accounts
+            </button>
+            <button class="tab-btn" data-tab="summary">
+                <i class="fas fa-chart-bar"></i> Year Summary
+            </button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Journal Entries Tab -->
+            <div id="journal-entries" class="tab-content active">
+                <div class="section-header">
+                    <h2>Journal Entries</h2>
+                    <div class="journal-controls">
+                        <div class="month-nav">
+                            <button id="prevMonthJournal" class="btn btn-small">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="currentMonthJournal" class="current-month">January 2025</span>
+                            <button id="nextMonthJournal" class="btn btn-small">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <button id="addJournalEntry" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Entry
+                        </button>
+                    </div>
+                </div>
+
+                <div class="journal-container">
+                    <!-- Balance Brought Forward Section -->
+                    <div class="balance-forward-section">
+                        <h3>Balance Brought Forward</h3>
+                        <div class="balance-forward-input">
+                            <label>Previous Month Ending Balance:</label>
+                            <input type="number" step="0.01" id="balanceBroughtForward" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <!-- Journal Entry Table -->
+                    <div class="journal-table-container">
+                        <table id="journalTable" class="journal-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Line</th>
+                                    <th rowspan="2">Date</th>
+                                    <th rowspan="2">Payee</th>
+                                    <th rowspan="2">Ck No.</th>
+                                    <th rowspan="2">Ck Amount</th>
+                                    <th rowspan="2">Horizontal Proof</th>
+                                    <th rowspan="2">Book Balance</th>
+                                    <th rowspan="2">Deposit Date</th>
+                                    <th rowspan="2">Other P&L Receipts</th>
+                                    <th rowspan="2">A/R Deposit Amount</th>
+                                    <th rowspan="2">P&L Deposit Explanation</th>
+                                    <th rowspan="2">Balance Sheet Deposit</th>
+                                    <th rowspan="2">Balance Sheet Deposit Explanation</th>
+                                    <th colspan="15">P&L Account Distributions</th>
+                                </tr>
+                                <tr>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                    <th>Name</th>
+                                    <th>GL#</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journalTableBody">
+                                <!-- Journal entries will be populated here -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="journal-totals">
+                                    <td colspan="4"><strong>Ck Amount Total</strong></td>
+                                    <td id="totalCkAmount">$0.00</td>
+                                    <td colspan="2"><strong>Sum of ALL G/L Distribution Columns</strong></td>
+                                    <td id="totalDistribution">$0.00</td>
+                                    <td colspan="20"></td>
+                                </tr>
+                                <tr class="journal-summary">
+                                    <td colspan="4"></td>
+                                    <td><strong>Book Balance</strong></td>
+                                    <td id="finalBookBalance">$0.00</td>
+                                    <td><strong>Deposit Data</strong></td>
+                                    <td colspan="21"></td>
+                                </tr>
+                                <tr class="journal-summary">
+                                    <td colspan="4"><strong>Expense (P&L) Distribution TOTAL</strong></td>
+                                    <td id="expenseTotal">$0.00</td>
+                                    <td><strong>Other P&L Receipts</strong></td>
+                                    <td id="otherReceipts">$0.00</td>
+                                    <td colspan="21"></td>
+                                </tr>
+                                <tr class="journal-summary">
+                                    <td colspan="4"><strong>Balance Sheet Distribution TOTAL</strong></td>
+                                    <td id="balanceSheetTotal">$0.00</td>
+                                    <td><strong>A/R Deposit Amount</strong></td>
+                                    <td id="arDepositTotal">$0.00</td>
+                                    <td colspan="21"></td>
+                                </tr>
+                                <tr class="journal-summary">
+                                    <td colspan="4"><strong>In Balance = ZERO</strong></td>
+                                    <td id="balanceCheck" class="balance-check-cell">$0.00</td>
+                                    <td><strong>P&L Deposit Explanation</strong></td>
+                                    <td id="plDepositTotal">$0.00</td>
+                                    <td colspan="21"></td>
+                                </tr>
+                                <tr class="journal-summary">
+                                    <td colspan="6"><strong>Report Reconciliation</strong></td>
+                                    <td><strong>Balance Sheet Deposit</strong></td>
+                                    <td id="bsDepositTotal">$0.00</td>
+                                    <td colspan="20"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Citizen Statement Deposit Section -->
+                    <div class="citizen-statement-section">
+                        <div class="citizen-statement-input">
+                            <label>Citizen Statement Deposit TOTAL:</label>
+                            <input type="number" step="0.01" id="citizenStatementDeposit" placeholder="0.00">
+                            <span class="citizen-reconcile">Reconcile Right</span>
+                        </div>
+                        <div class="dif-section">
+                            <label>DIF:</label>
+                            <input type="number" step="0.01" id="difAmount" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Balance Sheet Tab -->
+            <div id="balance-sheet" class="tab-content">
+                <div class="section-header">
+                    <h2>Balance Sheet</h2>
+                    <div class="month-nav">
+                        <button id="prevMonth" class="btn btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="currentMonth" class="current-month">January 2025</span>
+                        <button id="nextMonth" class="btn btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="balance-sheet-grid">
+                    <!-- Assets Section -->
+                    <div class="bs-section">
+                        <h3>Assets</h3>
+                        <div class="bs-category">
+                            <h4>Current Assets</h4>
+                            <div class="input-group">
+                                <label>Cash & Cash Equivalents</label>
+                                <div class="input-controls">
+                                    <select data-account="cash" class="gl-select">
+                                        <option value="">Select GL Account</option>
+                                    </select>
+                                    <input type="number" step="0.01" data-account="cash" class="bs-input">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Accounts Receivable</label>
+                                <div class="input-controls">
+                                    <select data-account="accounts-receivable" class="gl-select">
+                                        <option value="">Select GL Account</option>
+                                    </select>
+                                    <input type="number" step="0.01" data-account="accounts-receivable" class="bs-input">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Inventory</label>
+                                <div class="input-controls">
+                                    <select data-account="inventory" class="gl-select">
+                                        <option value="">Select GL Account</option>
+                                    </select>
+                                    <input type="number" step="0.01" data-account="inventory" class="bs-input">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Prepaid Expenses</label>
+                                <div class="input-controls">
+                                    <select data-account="prepaid-expenses" class="gl-select">
+                                        <option value="">Select GL Account</option>
+                                    </select>
+                                    <input type="number" step="0.01" data-account="prepaid-expenses" class="bs-input">
+                                </div>
+                            </div>
+                            <div class="subtotal">
+                                <strong>Total Current Assets: $<span id="total-current-assets">0.00</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="bs-category">
+                            <h4>Fixed Assets</h4>
+                            <div class="input-group">
+                                <label>Property, Plant & Equipment</label>
+                                <input type="number" step="0.01" data-account="ppe" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Accumulated Depreciation</label>
+                                <input type="number" step="0.01" data-account="accumulated-depreciation" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Intangible Assets</label>
+                                <input type="number" step="0.01" data-account="intangible-assets" class="bs-input">
+                            </div>
+                            <div class="subtotal">
+                                <strong>Total Fixed Assets: $<span id="total-fixed-assets">0.00</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="total-section">
+                            <h3>Total Assets: $<span id="total-assets">0.00</span></h3>
+                        </div>
+                    </div>
+
+                    <!-- Liabilities & Equity Section -->
+                    <div class="bs-section">
+                        <h3>Liabilities & Equity</h3>
+                        <div class="bs-category">
+                            <h4>Current Liabilities</h4>
+                            <div class="input-group">
+                                <label>Accounts Payable</label>
+                                <input type="number" step="0.01" data-account="accounts-payable" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Short-term Debt</label>
+                                <input type="number" step="0.01" data-account="short-term-debt" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Accrued Expenses</label>
+                                <input type="number" step="0.01" data-account="accrued-expenses" class="bs-input">
+                            </div>
+                            <div class="subtotal">
+                                <strong>Total Current Liabilities: $<span id="total-current-liabilities">0.00</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="bs-category">
+                            <h4>Long-term Liabilities</h4>
+                            <div class="input-group">
+                                <label>Long-term Debt</label>
+                                <input type="number" step="0.01" data-account="long-term-debt" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Other Long-term Liabilities</label>
+                                <input type="number" step="0.01" data-account="other-lt-liabilities" class="bs-input">
+                            </div>
+                            <div class="subtotal">
+                                <strong>Total Long-term Liabilities: $<span id="total-lt-liabilities">0.00</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="bs-category">
+                            <h4>Equity</h4>
+                            <div class="input-group">
+                                <label>Owner's Equity</label>
+                                <input type="number" step="0.01" data-account="owners-equity" class="bs-input">
+                            </div>
+                            <div class="input-group">
+                                <label>Retained Earnings</label>
+                                <input type="number" step="0.01" data-account="retained-earnings" class="bs-input">
+                            </div>
+                            <div class="subtotal">
+                                <strong>Total Equity: $<span id="total-equity">0.00</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="total-section">
+                            <h3>Total Liabilities & Equity: $<span id="total-liabilities-equity">0.00</span></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-check">
+                    <div id="balance-status" class="balance-status">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Balance Sheet does not balance</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profit & Loss Tab -->
+            <div id="profit-loss" class="tab-content">
+                <div class="section-header">
+                    <h2>Profit & Loss Statement</h2>
+                    <div class="month-nav">
+                        <button id="prevMonthPL" class="btn btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="currentMonthPL" class="current-month">January 2025</span>
+                        <button id="nextMonthPL" class="btn btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pl-statement">
+                    <div class="pl-section">
+                        <h3>Revenue</h3>
+                        <div class="input-group">
+                            <label>Sales Revenue</label>
+                            <input type="number" step="0.01" data-account="sales-revenue" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Service Revenue</label>
+                            <input type="number" step="0.01" data-account="service-revenue" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Other Revenue</label>
+                            <input type="number" step="0.01" data-account="other-revenue" class="pl-input">
+                        </div>
+                        <div class="subtotal">
+                            <strong>Total Revenue: $<span id="total-revenue">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="pl-section">
+                        <h3>Cost of Goods Sold</h3>
+                        <div class="input-group">
+                            <label>Direct Materials</label>
+                            <input type="number" step="0.01" data-account="direct-materials" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Direct Labor</label>
+                            <input type="number" step="0.01" data-account="direct-labor" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Manufacturing Overhead</label>
+                            <input type="number" step="0.01" data-account="manufacturing-overhead" class="pl-input">
+                        </div>
+                        <div class="subtotal">
+                            <strong>Total COGS: $<span id="total-cogs">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="gross-profit">
+                        <h3>Gross Profit: $<span id="gross-profit">0.00</span></h3>
+                    </div>
+
+                    <div class="pl-section">
+                        <h3>Operating Expenses</h3>
+                        <div class="input-group">
+                            <label>Salaries & Wages</label>
+                            <input type="number" step="0.01" data-account="salaries-wages" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Rent</label>
+                            <input type="number" step="0.01" data-account="rent" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Utilities</label>
+                            <input type="number" step="0.01" data-account="utilities" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Marketing & Advertising</label>
+                            <input type="number" step="0.01" data-account="marketing" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Insurance</label>
+                            <input type="number" step="0.01" data-account="insurance" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Professional Services</label>
+                            <input type="number" step="0.01" data-account="professional-services" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Depreciation</label>
+                            <input type="number" step="0.01" data-account="depreciation" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Other Operating Expenses</label>
+                            <input type="number" step="0.01" data-account="other-operating" class="pl-input">
+                        </div>
+                        <div class="subtotal">
+                            <strong>Total Operating Expenses: $<span id="total-operating-expenses">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="operating-income">
+                        <h3>Operating Income: $<span id="operating-income">0.00</span></h3>
+                    </div>
+
+                    <div class="pl-section">
+                        <h3>Other Income/Expenses</h3>
+                        <div class="input-group">
+                            <label>Interest Income</label>
+                            <input type="number" step="0.01" data-account="interest-income" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Interest Expense</label>
+                            <input type="number" step="0.01" data-account="interest-expense" class="pl-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Other Income</label>
+                            <input type="number" step="0.01" data-account="other-income" class="pl-input">
+                        </div>
+                        <div class="subtotal">
+                            <strong>Net Other Income: $<span id="net-other-income">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="net-income">
+                        <h2>Net Income: $<span id="net-income">0.00</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GL Accounts Tab -->
+            <div id="gl-accounts" class="tab-content">
+                <div class="section-header">
+                    <h2>General Ledger Accounts</h2>
+                    <button id="addGLAccount" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Account
+                    </button>
+                </div>
+
+                <div class="gl-accounts-container">
+                    <div class="gl-search-bar">
+                        <input type="text" id="glSearchInput" placeholder="Search accounts..." class="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+
+                    <div class="gl-accounts-grid">
+                        <div class="gl-section">
+                            <h3>Assets (1000-1999)</h3>
+                            <div id="assets-gl-list" class="gl-list">
+                                <!-- Asset GL accounts will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="gl-section">
+                            <h3>Liabilities (2000-2999)</h3>
+                            <div id="liabilities-gl-list" class="gl-list">
+                                <!-- Liability GL accounts will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="gl-section">
+                            <h3>Equity (3000-3999)</h3>
+                            <div id="equity-gl-list" class="gl-list">
+                                <!-- Equity GL accounts will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="gl-section">
+                            <h3>Revenue (4000-4999)</h3>
+                            <div id="revenue-gl-list" class="gl-list">
+                                <!-- Revenue GL accounts will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="gl-section">
+                            <h3>Expenses (5000-9999)</h3>
+                            <div id="expenses-gl-list" class="gl-list">
+                                <!-- Expense GL accounts will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add/Edit GL Account Modal -->
+                <div id="glAccountModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="modalTitle">Add GL Account</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="glAccountForm">
+                                <div class="form-group">
+                                    <label for="accountNumber">Account Number</label>
+                                    <input type="text" id="accountNumber" name="accountNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountName">Account Name</label>
+                                    <input type="text" id="accountName" name="accountName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountType">Account Type</label>
+                                    <select id="accountType" name="accountType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="assets">Assets</option>
+                                        <option value="liabilities">Liabilities</option>
+                                        <option value="equity">Equity</option>
+                                        <option value="revenue">Revenue</option>
+                                        <option value="expenses">Expenses</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountDescription">Description (Optional)</label>
+                                    <textarea id="accountDescription" name="accountDescription" rows="3"></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Account</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Tab -->
+            <div id="summary" class="tab-content">
+                <div class="section-header">
+                    <h2>Year Summary <span id="summaryYear">2025</span></h2>
+                </div>
+
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>Revenue Trend</h3>
+                        <canvas id="revenueChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Expense Trend</h3>
+                        <canvas id="expenseChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Net Income Trend</h3>
+                        <canvas id="netIncomeChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Key Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <span class="metric-label">Total YTD Revenue</span>
+                                <span class="metric-value" id="ytd-revenue">$0.00</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Total YTD Expenses</span>
+                                <span class="metric-value" id="ytd-expenses">$0.00</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">YTD Net Income</span>
+                                <span class="metric-value" id="ytd-net-income">$0.00</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Average Monthly Revenue</span>
+                                <span class="metric-value" id="avg-monthly-revenue">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="monthly-summary-table">
+                    <h3>Monthly Summary</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Revenue</th>
+                                <th>Expenses</th>
+                                <th>Net Income</th>
+                                <th>Cumulative</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthly-summary-body">
+                            <!-- Monthly data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

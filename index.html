@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brookpont Creative | Design Agency</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo"><span class="logo-code">brookpont</span><span class="logo-creative">.creative</span></div>
+                <ul class="nav-links">
+                    <li><a href="#technical">Technical</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact" class="btn-contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Designing the future</span>
+                    <span class="title-line">across software,</span>
+                    <span class="title-line">hardware, and objects</span>
+                </h1>
+                <p class="hero-subtitle">
+                    We create meaningful experiences that bridge the digital and physical worlds, 
+                    crafting solutions that are both beautiful and functional.
+                </p>
+                <div class="hero-cta">
+                    <a href="#technical" class="btn btn-primary">View Technical Details</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="cursor-trail" id="cursorTrail"></div>
+            <div class="scan-line" id="scanLine"></div>
+            <div class="brand-watermark">
+                <div class="brand-text">brookpont</div>
+                <div class="brand-text brand-creative">creative</div>
+            </div>
+            <div class="circuit-board-overlay">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop" alt="Circuit board" class="circuit-board-image">
+            </div>
+            <svg class="circuit-grid" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e5e5e5" stroke-width="0.5" opacity="0.4"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)"/>
+                <g class="circuit-lines">
+                    <path class="circuit-path path-1" d="M 100 200 L 300 200 L 300 400 L 500 400 L 500 600" fill="none" stroke="#000" stroke-width="2" opacity="0.15"/>
+                    <path class="circuit-path path-2" d="M 800 300 L 600 300 L 600 500 L 400 500 L 400 700" fill="none" stroke="#000" stroke-width="2" opacity="0.15"/>
+                    <path class="circuit-path path-3" d="M 200 700 L 400 700 L 400 500 L 600 500 L 600 300" fill="none" stroke="#000" stroke-width="2" opacity="0.15"/>
+                    <path class="circuit-path path-4" d="M 700 100 L 700 300 L 500 300 L 500 500" fill="none" stroke="#000" stroke-width="2" opacity="0.15"/>
+                    <rect class="circuit-component comp-1" x="95" y="195" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <rect class="circuit-component comp-2" x="495" y="395" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <rect class="circuit-component comp-3" x="795" y="295" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <rect class="circuit-component comp-4" x="395" y="495" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <rect class="circuit-component comp-5" x="195" y="695" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <rect class="circuit-component comp-6" x="695" y="95" width="10" height="10" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-1" cx="100" cy="200" r="4" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-2" cx="500" cy="400" r="4" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-3" cx="800" cy="300" r="4" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-4" cx="400" cy="500" r="4" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-5" cx="200" cy="700" r="4" fill="#000" opacity="0.2"/>
+                    <circle class="circuit-node node-6" cx="700" cy="100" r="4" fill="#000" opacity="0.2"/>
+                </g>
+            </svg>
+            <div class="code-overlay">
+                <div class="code-line">const design = {</div>
+                <div class="code-line">  software: 'minimal',</div>
+                <div class="code-line">  hardware: 'precise',</div>
+                <div class="code-line">  objects: 'thoughtful'</div>
+                <div class="code-line">};</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="services-background">
+            <img src="https://images.unsplash.com/photo-1627378219859-63e7e4b3c358?w=1200&q=80&auto=format&fit=crop" alt="Circuit board background" class="services-bg-image">
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What We Do</h2>
+                <p class="section-description">
+                    Our expertise spans three core domains, unified by a commitment to exceptional design
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <rect x="10" y="20" width="80" height="60" rx="2" fill="none"/>
+                            <rect x="20" y="30" width="15" height="10" fill="currentColor" opacity="0.3"/>
+                            <rect x="40" y="30" width="15" height="10" fill="currentColor" opacity="0.3"/>
+                            <rect x="60" y="30" width="15" height="10" fill="currentColor" opacity="0.3"/>
+                            <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" stroke-width="1"/>
+                            <line x1="20" y1="60" x2="60" y2="60" stroke="currentColor" stroke-width="1"/>
+                            <circle cx="30" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                            <circle cx="50" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                            <circle cx="70" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <h3>Software</h3>
+                    <p>Digital experiences that are intuitive, elegant, and powerful. From web applications to mobile interfaces, we craft software that users love.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <rect x="20" y="15" width="60" height="70" rx="2" fill="none"/>
+                            <rect x="30" y="25" width="12" height="8" fill="currentColor" opacity="0.4"/>
+                            <rect x="45" y="25" width="12" height="8" fill="currentColor" opacity="0.4"/>
+                            <rect x="58" y="25" width="12" height="8" fill="currentColor" opacity="0.4"/>
+                            <line x1="25" y1="40" x2="75" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="25" y1="50" x2="70" y2="50" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="25" y1="60" x2="65" y2="60" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="30" cy="75" r="2.5" fill="currentColor" opacity="0.6"/>
+                            <circle cx="50" cy="75" r="2.5" fill="currentColor" opacity="0.6"/>
+                            <circle cx="70" cy="75" r="2.5" fill="currentColor" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <h3>Hardware</h3>
+                    <p>Circuit design and physical products that seamlessly integrate technology and design. We bring innovative hardware concepts to life through meticulous circuit design and precision engineering.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <rect x="15" y="20" width="70" height="60" rx="2" fill="none"/>
+                            <path d="M 25 30 L 35 30 L 35 40 L 25 40 Z" fill="currentColor" opacity="0.3"/>
+                            <path d="M 40 30 L 50 30 L 50 40 L 40 40 Z" fill="currentColor" opacity="0.3"/>
+                            <path d="M 55 30 L 65 30 L 65 40 L 55 40 Z" fill="currentColor" opacity="0.3"/>
+                            <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" stroke-width="1"/>
+                            <line x1="20" y1="60" x2="75" y2="60" stroke="currentColor" stroke-width="1"/>
+                            <circle cx="30" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                            <circle cx="50" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                            <circle cx="70" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <h3>Objects</h3>
+                    <p>Thoughtfully designed physical objects that enhance daily life. We create products that are both functional and beautiful.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Showcase Section -->
+    <section id="technical" class="technical-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Details</h2>
+                <p class="section-description">
+                    Precision in circuit design and code
+                </p>
+            </div>
+            <div class="technical-grid">
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop" alt="Circuit trace closeup" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">Circuit Traces</span>
+                    </div>
+                </div>
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1627378219859-63e7e4b3c358?w=800&q=80&auto=format&fit=crop" alt="Circuit board detail" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">PCB Design</span>
+                    </div>
+                </div>
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop" alt="Circuit components" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">Component Layout</span>
+                    </div>
+                </div>
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80&auto=format&fit=crop" alt="Terminal screen" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">Terminal</span>
+                    </div>
+                </div>
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80&auto=format&fit=crop" alt="Code terminal" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">Code Interface</span>
+                    </div>
+                </div>
+                <div class="technical-item">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop" alt="Circuit board macro" class="technical-img">
+                    <div class="technical-overlay">
+                        <span class="technical-label">Hardware Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-background">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop" alt="Circuit board detail" class="about-bg-image">
+        </div>
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Brookpont Creative</h2>
+                    <p>
+                        We are a design agency that believes in the power of thoughtful design to create 
+                        meaningful connections. Our work spans the digital and physical realms, creating 
+                        cohesive experiences that resonate with users.
+                    </p>
+                    <p>
+                        Whether we're designing software interfaces, developing hardware through circuit design, or 
+                        crafting physical objects, our approach remains consistent: understand the problem, 
+                        explore creative solutions, and execute with precision and care.
+                    </p>
+                </div>
+                <div class="about-image-section">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" alt="Circuit board design" class="about-circuit-image">
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Design Domains</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-background">
+            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80&auto=format&fit=crop" alt="Circuit board pattern" class="contact-bg-image">
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-description">
+                    Have a project in mind? We'd love to hear from you.
+                </p>
+            </div>
+            <div class="contact-content">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <h4>Email</h4>
+                        <p>hello@brookpontcreative.com</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Location</h4>
+                        <p>Available worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo"><span class="logo-code">brookpont</span><span class="logo-creative">.creative</span></div>
+                    <p>Designing across software, hardware, and objects</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#technical">Technical</a>
+                    <a href="#services">Services</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brookpont Creative. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

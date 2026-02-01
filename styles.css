@@ -926,10 +926,10 @@ section {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 64px;
-    gap: 64px;
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contact-form {

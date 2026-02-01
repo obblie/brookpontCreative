@@ -152,12 +152,12 @@ const scrollGradientHandler = () => {
         .services,
         .about,
         .contact,
-        .work {
+        .technical-showcase {
             background-color: hsl(${invertedHue}, ${invertedSaturation}%, ${invertedLightness}%) !important;
         }
         
         .service-card,
-        .work-item,
+        .technical-item,
         .stat-item {
             background-color: hsl(${invertedHue + 15}, ${invertedSaturation}%, ${Math.max(invertedLightness - 10, 0)}%) !important;
             color: ${textColor} !important;
@@ -171,7 +171,9 @@ const scrollGradientHandler = () => {
         
         .hero-subtitle,
         .section-description,
-        p {
+        p,
+        .service-card p,
+        .info-item p {
             color: ${textColorSecondary} !important;
         }
         
@@ -180,7 +182,9 @@ const scrollGradientHandler = () => {
         }
         
         .nav-links a,
-        .logo {
+        .logo,
+        .logo-code,
+        .logo-creative {
             color: ${textColor} !important;
         }
         
@@ -191,6 +195,41 @@ const scrollGradientHandler = () => {
         
         .btn-secondary {
             border-color: ${textColor} !important;
+            color: ${textColor} !important;
+        }
+        
+        .work-category,
+        .technical-label {
+            color: ${textColorSecondary} !important;
+        }
+        
+        .code-overlay,
+        .code-line {
+            color: ${textColorSecondary} !important;
+            background: hsl(${invertedHue}, ${invertedSaturation}%, ${Math.max(invertedLightness - 5, 0)}%) !important;
+        }
+        
+        .email-placeholder,
+        .email-address {
+            color: ${textColorSecondary} !important;
+        }
+        
+        .email-reveal.revealed .email-address {
+            color: ${textColor} !important;
+        }
+        
+        .footer {
+            background-color: hsl(${invertedHue}, ${invertedSaturation}%, ${Math.max(invertedLightness - 20, 0)}%) !important;
+            color: ${textColor} !important;
+        }
+        
+        .footer-links a,
+        .footer-brand .logo,
+        .footer-brand p {
+            color: ${textColorSecondary} !important;
+        }
+        
+        .footer-links a:hover {
             color: ${textColor} !important;
         }
     `;

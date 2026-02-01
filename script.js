@@ -623,4 +623,26 @@ document.addEventListener('DOMContentLoaded', () => {
             codeOverlay.style.transform = '';
         });
     }
+    
+    // Email reveal functionality
+    const emailReveal = document.getElementById('emailReveal');
+    if (emailReveal) {
+        emailReveal.addEventListener('click', () => {
+            if (!emailReveal.classList.contains('revealed')) {
+                emailReveal.classList.add('revealed');
+                const emailAddress = emailReveal.querySelector('.email-address').textContent;
+                
+                // Create mailto link
+                const mailtoLink = document.createElement('a');
+                mailtoLink.href = `mailto:${emailAddress}`;
+                mailtoLink.textContent = emailAddress;
+                mailtoLink.style.textDecoration = 'none';
+                mailtoLink.style.color = 'inherit';
+                
+                const emailAddressSpan = emailReveal.querySelector('.email-address');
+                emailAddressSpan.innerHTML = '';
+                emailAddressSpan.appendChild(mailtoLink);
+            }
+        });
+    }
 });

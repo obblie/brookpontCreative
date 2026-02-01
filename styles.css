@@ -986,6 +986,72 @@ section {
     color: var(--text-secondary);
 }
 
+.email-reveal {
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+    display: inline-block;
+    padding: 4px 8px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.email-reveal:hover {
+    border-bottom-color: var(--text-primary);
+}
+
+.email-placeholder {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.email-address {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.email-reveal.revealed .email-placeholder {
+    display: none;
+}
+
+.email-reveal.revealed .email-address {
+    display: inline !important;
+}
+
+.email-reveal {
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+    display: inline-block;
+    padding: 4px 8px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.email-reveal:hover {
+    border-bottom-color: var(--text-primary);
+}
+
+.email-placeholder {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.email-address {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.email-reveal.revealed .email-placeholder {
+    display: none;
+}
+
+.email-reveal.revealed .email-address {
+    display: inline !important;
+}
+
 /* Footer */
 .footer {
     background: var(--primary-color);

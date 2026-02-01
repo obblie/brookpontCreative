@@ -191,6 +191,7 @@ const scrollGradientHandler = () => {
         .btn-contact {
             background-color: ${textColor} !important;
             color: hsl(${invertedHue}, ${invertedSaturation}%, ${invertedLightness}%) !important;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease !important;
         }
         
         .btn-primary {

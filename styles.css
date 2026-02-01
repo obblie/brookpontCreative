@@ -138,18 +138,17 @@ body::before {
 
 .btn-contact {
     background: var(--primary-color);
-    color: white !important;
+    color: white;
     padding: 10px 20px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition), color 0.3s ease;
 }
 
 .btn-contact:hover {
     background: var(--text-primary);
     transform: translateY(-1px);
-    color: white !important;
 }
 
 .btn-contact::after {
